@@ -1,30 +1,29 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
-// Punteros
-// * -> puntero
-// & -> refenrencia | Direccion de memoria
-// COPIA LOS ARGUMENTOS
-
-func incrementar(numero *int){
-	// Nunca modifiques el argumento directamente
-	*numero++
+// Interfaces
+type Forma interface {
+	Area() float64
 }
 
-//? Porque usar punteros?
-// Queremos modificar el elemento original!
-// 
+type Circulo struct {
+	Radio float64
+}
+
+func (c Circulo) Area() float64 {
+	return math.Pi * c.Radio * c.Radio
+}
+
+func imprimirArea(f Forma){
+	fmt.Printf("El area es: %.2f\n", f.Area())
+}
+
 
 func main() {
-	valor := 10
-	fmt.Println("Valor antes de incrementar: ", valor)
-	incrementar(&valor)
-	fmt.Println("Valor despues de incrementar: ", valor)
-	
-	// new()
-	puntero := new(int) //Puntero inicializado en 0
-	fmt.Println("Valor inicial con new: ", *puntero)
-	*puntero = 20
-	fmt.Println("Valor inicial con new: ", *puntero)
+	c := Circulo{Radio: 5}
+	imprimirArea(c)
 }
